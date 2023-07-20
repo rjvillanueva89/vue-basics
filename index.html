@@ -13,7 +13,7 @@
       <nav
         id="nav"
         class="navbar navbar-expand-lg"
-        :class="{'navbar-light bg-light': !useDarkTheme, 'navbar-dark bg-dark': useDarkTheme}"
+        :class="[`navbar-${theme}`, `bg-${theme}`]"
       >
         <div class="container">
           <a class="navbar-brand" href="#">Vue Basics</a>
@@ -35,10 +35,12 @@
       <div id="content" class="container">
         <h1>{{ pages[activePage].title }}</h1>
         <p>{{ pages[activePage].content }}</p>
-
+        <button type="button" @click.prevent="count++" class="btn btn-primary">
+          button click: {{ count }}
+        </button>
         <button
           type="button"
-          @click.prevent="useDarkTheme = !useDarkTheme"
+          @click.prevent="changeTheme()"
           class="btn btn-primary"
         >
           toggle
@@ -47,9 +49,10 @@
     </main>
     <script>
       Vue.createApp({
-        data: () => {
+        data() {
           return {
-            useDarkTheme: false,
+            count: 0,
+            theme: "dark",
             activePage: 0,
             pages: [
               {
@@ -69,6 +72,11 @@
               },
             ],
           }
+        },
+        methods: {
+          changeTheme() {
+            this.theme = this.theme === "dark" ? "light" : "dark"
+          },
         },
       }).mount("#app")
     </script>
