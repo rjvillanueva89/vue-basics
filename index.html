@@ -6,7 +6,17 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   </head>
   <body>
-    <div id="app">
+    <nav id="nav" class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Vue Basics</a>
+        <ul class="navbar-nav">
+          <li v-for="link in links" class="nav-item">
+            <a class="nav-link" aria-current="page" href="#">{{ link }}</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div id="content">
       <h1>{{ pageTitle }}</h1>
       <p>Lorem ipsum dolor sit amet.</p>
     </div>
@@ -15,10 +25,18 @@
       Vue.createApp({
         data: () => {
           return {
+            links: ["Home", "About", "Contact"]
+          }
+        }
+      }).mount("#nav");
+
+      Vue.createApp({
+        data: () => {
+          return {
             pageTitle: "Hello Vue! New Test"
           }
         }
-      }).mount("#app");
+      }).mount("#content");
     </script>
   </body>
 </html>
